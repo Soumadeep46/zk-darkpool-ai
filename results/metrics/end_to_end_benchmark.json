@@ -1,0 +1,369 @@
+{
+  "cpu_threads": 16,
+  "parallel_zk_workers": 8,
+  "market_preparation_time_ms": 126534.1977999924,
+  "repetitions": 7,
+  "baseline": {
+    "pipeline_latency": {
+      "mean_ms": 213635.46787142692,
+      "median_ms": 211803.6401999998,
+      "p95_ms": 222138.7574599954,
+      "std_ms": 5007.484385608123,
+      "min_ms": 209265.6275999907,
+      "max_ms": 224496.7045999947
+    },
+    "final_run": {
+      "orders": 20,
+      "candidates": 100,
+      "candidates_sent_to_zk": 53,
+      "candidates_filtered_before_zk": 47,
+      "valid_matches": 53,
+      "settlements": 53,
+      "matching_time_ms": 50742.961700001615
+    }
+  },
+  "ai_zk_pipeline": {
+    "10%": {
+      "selection_fraction": 0.1,
+      "pipeline_latency": {
+        "mean_ms": 27912.561714285403,
+        "median_ms": 27780.975499990745,
+        "p95_ms": 28405.044250006904,
+        "std_ms": 299.1928766380904,
+        "min_ms": 27617.918799995095,
+        "max_ms": 28485.1711000083
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.73368571444215,
+        "median_ms": 2.7261000068392605,
+        "p95_ms": 2.9984599925228395,
+        "std_ms": 0.1726554864321738,
+        "min_ms": 2.5258999958168715,
+        "max_ms": 3.0472999933408573
+      },
+      "zk_matching_latency": {
+        "mean_ms": 6777.461299999101,
+        "median_ms": 6669.782100012526,
+        "p95_ms": 7187.636829998519,
+        "std_ms": 237.18803231791327,
+        "min_ms": 6595.718399999896,
+        "max_ms": 7278.136900000391
+      },
+      "mean_candidates_processed": 10.0,
+      "mean_candidates_eliminated": 90.0,
+      "mean_candidates_sent_to_zk": 7.0,
+      "mean_candidates_filtered_before_zk": 3.0,
+      "candidate_reduction_percent": 90.0,
+      "zk_work_reduction_percent": 86.79245283018868,
+      "mean_valid_matches": 7.0,
+      "recall": 0.1320754716981132,
+      "precision": 1.0,
+      "mean_settlements": 7.0,
+      "latency_reduction_percent": 86.9344907976216
+    },
+    "15%": {
+      "selection_fraction": 0.15,
+      "pipeline_latency": {
+        "mean_ms": 39447.69605714412,
+        "median_ms": 39506.26049999846,
+        "p95_ms": 39660.10357000341,
+        "std_ms": 196.37222006835188,
+        "min_ms": 39062.798300001305,
+        "max_ms": 39696.28360000206
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.5577999975731864,
+        "median_ms": 2.4683999945409596,
+        "p95_ms": 2.8184200040414,
+        "std_ms": 0.16536708361650182,
+        "min_ms": 2.3499999952036887,
+        "max_ms": 2.890300005674362
+      },
+      "zk_matching_latency": {
+        "mean_ms": 11957.819328572701,
+        "median_ms": 11901.340600001276,
+        "p95_ms": 12129.50506000052,
+        "std_ms": 120.98522384609552,
+        "min_ms": 11792.95020000427,
+        "max_ms": 12147.930999999517
+      },
+      "mean_candidates_processed": 15.0,
+      "mean_candidates_eliminated": 85.0,
+      "mean_candidates_sent_to_zk": 9.0,
+      "mean_candidates_filtered_before_zk": 6.0,
+      "candidate_reduction_percent": 85.0,
+      "zk_work_reduction_percent": 83.01886792452831,
+      "mean_valid_matches": 9.0,
+      "recall": 0.16981132075471697,
+      "precision": 1.0,
+      "mean_settlements": 9.0,
+      "latency_reduction_percent": 81.53504357203221
+    },
+    "20%": {
+      "selection_fraction": 0.2,
+      "pipeline_latency": {
+        "mean_ms": 50405.77401428683,
+        "median_ms": 50399.38750000147,
+        "p95_ms": 50992.97805999959,
+        "std_ms": 425.69462832131575,
+        "min_ms": 49740.90360000264,
+        "max_ms": 51068.65749999997
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.427057142735326,
+        "median_ms": 2.434599999105558,
+        "p95_ms": 2.5087099929805845,
+        "std_ms": 0.05424941521885034,
+        "min_ms": 2.3662000021431595,
+        "max_ms": 2.529499994125217
+      },
+      "zk_matching_latency": {
+        "mean_ms": 13372.986271426531,
+        "median_ms": 13362.988199995016,
+        "p95_ms": 13839.321220001148,
+        "std_ms": 315.2779553814005,
+        "min_ms": 13011.123000003863,
+        "max_ms": 13904.150200003642
+      },
+      "mean_candidates_processed": 20.0,
+      "mean_candidates_eliminated": 80.0,
+      "mean_candidates_sent_to_zk": 12.0,
+      "mean_candidates_filtered_before_zk": 8.0,
+      "candidate_reduction_percent": 80.0,
+      "zk_work_reduction_percent": 77.35849056603774,
+      "mean_valid_matches": 12.0,
+      "recall": 0.22641509433962265,
+      "precision": 1.0,
+      "mean_settlements": 12.0,
+      "latency_reduction_percent": 76.40570897870631
+    },
+    "25%": {
+      "selection_fraction": 0.25,
+      "pipeline_latency": {
+        "mean_ms": 59840.90885713937,
+        "median_ms": 59549.61069999263,
+        "p95_ms": 60880.038449997664,
+        "std_ms": 711.7773659184305,
+        "min_ms": 58994.0915999905,
+        "max_ms": 61006.09409999743
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.6198571452238997,
+        "median_ms": 2.6345000078435987,
+        "p95_ms": 2.841189999890048,
+        "std_ms": 0.16046814211902377,
+        "min_ms": 2.3462000099243596,
+        "max_ms": 2.904699998907745
+      },
+      "zk_matching_latency": {
+        "mean_ms": 14348.91042856907,
+        "median_ms": 14296.23609999544,
+        "p95_ms": 15113.929330000246,
+        "std_ms": 471.0128694729573,
+        "min_ms": 13847.148099986953,
+        "max_ms": 15263.53989999916
+      },
+      "mean_candidates_processed": 25.0,
+      "mean_candidates_eliminated": 75.0,
+      "mean_candidates_sent_to_zk": 15.0,
+      "mean_candidates_filtered_before_zk": 10.0,
+      "candidate_reduction_percent": 75.0,
+      "zk_work_reduction_percent": 71.69811320754717,
+      "mean_valid_matches": 15.0,
+      "recall": 0.2830188679245283,
+      "precision": 1.0,
+      "mean_settlements": 15.0,
+      "latency_reduction_percent": 71.98924436407083
+    },
+    "30%": {
+      "selection_fraction": 0.3,
+      "pipeline_latency": {
+        "mean_ms": 62867.939742859955,
+        "median_ms": 62568.96800000686,
+        "p95_ms": 64006.84959999635,
+        "std_ms": 678.5488874007635,
+        "min_ms": 62191.11650000559,
+        "max_ms": 64178.81289999059
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.85658571478312,
+        "median_ms": 2.776099994662218,
+        "p95_ms": 3.139210003428161,
+        "std_ms": 0.19528366548273365,
+        "min_ms": 2.588100003777072,
+        "max_ms": 3.146800008835271
+      },
+      "zk_matching_latency": {
+        "mean_ms": 14665.029357143794,
+        "median_ms": 14667.224400007399,
+        "p95_ms": 14939.265480005997,
+        "std_ms": 191.90798495949556,
+        "min_ms": 14448.23589999578,
+        "max_ms": 14940.494100010255
+      },
+      "mean_candidates_processed": 30.0,
+      "mean_candidates_eliminated": 70.0,
+      "mean_candidates_sent_to_zk": 16.0,
+      "mean_candidates_filtered_before_zk": 14.0,
+      "candidate_reduction_percent": 70.0,
+      "zk_work_reduction_percent": 69.81132075471697,
+      "mean_valid_matches": 16.0,
+      "recall": 0.3018867924528302,
+      "precision": 1.0,
+      "mean_settlements": 16.0,
+      "latency_reduction_percent": 70.5723303488651
+    },
+    "35%": {
+      "selection_fraction": 0.35,
+      "pipeline_latency": {
+        "mean_ms": 69474.14457142337,
+        "median_ms": 69478.48519998661,
+        "p95_ms": 69867.82400999655,
+        "std_ms": 264.3729653475498,
+        "min_ms": 69069.23670000106,
+        "max_ms": 69933.12509999669
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.4268714311931814,
+        "median_ms": 2.3323000059463084,
+        "p95_ms": 2.6812500014784746,
+        "std_ms": 0.1520198074573001,
+        "min_ms": 2.2960000060265884,
+        "max_ms": 2.731200002017431
+      },
+      "zk_matching_latency": {
+        "mean_ms": 18643.175857139537,
+        "median_ms": 18654.45390000241,
+        "p95_ms": 18745.667149996734,
+        "std_ms": 82.67158003124068,
+        "min_ms": 18487.651799994637,
+        "max_ms": 18765.83689999825
+      },
+      "mean_candidates_processed": 35.0,
+      "mean_candidates_eliminated": 65.0,
+      "mean_candidates_sent_to_zk": 17.0,
+      "mean_candidates_filtered_before_zk": 18.0,
+      "candidate_reduction_percent": 65.0,
+      "zk_work_reduction_percent": 67.9245283018868,
+      "mean_valid_matches": 17.0,
+      "recall": 0.32075471698113206,
+      "precision": 1.0,
+      "mean_settlements": 17.0,
+      "latency_reduction_percent": 67.48005129315172
+    },
+    "40%": {
+      "selection_fraction": 0.4,
+      "pipeline_latency": {
+        "mean_ms": 82630.19919999976,
+        "median_ms": 82570.69659999979,
+        "p95_ms": 83172.3380400028,
+        "std_ms": 347.39443983037654,
+        "min_ms": 82199.30559999193,
+        "max_ms": 83384.20020000194
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.9184714263205285,
+        "median_ms": 2.473700005793944,
+        "p95_ms": 3.8669699963065796,
+        "std_ms": 0.6290658235596265,
+        "min_ms": 2.3556999949505553,
+        "max_ms": 3.8735999987693503
+      },
+      "zk_matching_latency": {
+        "mean_ms": 20050.833942855075,
+        "median_ms": 19989.310400007525,
+        "p95_ms": 20589.174869992712,
+        "std_ms": 323.88629155147885,
+        "min_ms": 19734.903699994902,
+        "max_ms": 20775.95549999387
+      },
+      "mean_candidates_processed": 40.0,
+      "mean_candidates_eliminated": 60.0,
+      "mean_candidates_sent_to_zk": 21.0,
+      "mean_candidates_filtered_before_zk": 19.0,
+      "candidate_reduction_percent": 60.0,
+      "zk_work_reduction_percent": 60.37735849056604,
+      "mean_valid_matches": 21.0,
+      "recall": 0.39622641509433965,
+      "precision": 1.0,
+      "mean_settlements": 21.0,
+      "latency_reduction_percent": 61.321872241865094
+    },
+    "45%": {
+      "selection_fraction": 0.45,
+      "pipeline_latency": {
+        "mean_ms": 93517.48634285884,
+        "median_ms": 93454.49630000803,
+        "p95_ms": 94066.62868000421,
+        "std_ms": 374.75947794973956,
+        "min_ms": 93096.88429998641,
+        "max_ms": 94180.15420000302
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.792785713349336,
+        "median_ms": 2.6999999972758815,
+        "p95_ms": 3.365919996576849,
+        "std_ms": 0.35280814795716836,
+        "min_ms": 2.473199987434782,
+        "max_ms": 3.6321999941719696
+      },
+      "zk_matching_latency": {
+        "mean_ms": 21861.77924285377,
+        "median_ms": 21728.603399998974,
+        "p95_ms": 22278.49907999189,
+        "std_ms": 253.72884278548287,
+        "min_ms": 21558.816599994316,
+        "max_ms": 22357.808999993722
+      },
+      "mean_candidates_processed": 45.0,
+      "mean_candidates_eliminated": 55.0,
+      "mean_candidates_sent_to_zk": 24.0,
+      "mean_candidates_filtered_before_zk": 21.0,
+      "candidate_reduction_percent": 55.00000000000001,
+      "zk_work_reduction_percent": 54.71698113207547,
+      "mean_valid_matches": 24.0,
+      "recall": 0.4528301886792453,
+      "precision": 1.0,
+      "mean_settlements": 24.0,
+      "latency_reduction_percent": 56.225673913312534
+    },
+    "50%": {
+      "selection_fraction": 0.5,
+      "pipeline_latency": {
+        "mean_ms": 100585.56658571718,
+        "median_ms": 100507.76290000067,
+        "p95_ms": 100876.272899998,
+        "std_ms": 224.44392442965076,
+        "min_ms": 100208.47060000233,
+        "max_ms": 100879.40069999604
+      },
+      "ai_ranking_latency": {
+        "mean_ms": 2.882828574261761,
+        "median_ms": 2.5642999971751124,
+        "p95_ms": 4.0009700096561565,
+        "std_ms": 0.6532864592743624,
+        "min_ms": 2.28320001042448,
+        "max_ms": 4.234400010318495
+      },
+      "zk_matching_latency": {
+        "mean_ms": 26012.898085713718,
+        "median_ms": 25977.060299992445,
+        "p95_ms": 26277.819830000226,
+        "std_ms": 165.77194492342542,
+        "min_ms": 25826.911399999517,
+        "max_ms": 26317.05409999995
+      },
+      "mean_candidates_processed": 50.0,
+      "mean_candidates_eliminated": 50.0,
+      "mean_candidates_sent_to_zk": 25.0,
+      "mean_candidates_filtered_before_zk": 25.0,
+      "candidate_reduction_percent": 50.0,
+      "zk_work_reduction_percent": 52.83018867924528,
+      "mean_valid_matches": 25.0,
+      "recall": 0.4716981132075472,
+      "precision": 1.0,
+      "mean_settlements": 25.0,
+      "latency_reduction_percent": 52.917196948657896
+    }
+  }
+}
