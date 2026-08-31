@@ -646,23 +646,13 @@ The benchmark generates graphs dynamically from `end_to_end_benchmark.json`.
 
 ### Selection Fraction vs Valid Match Recall
 
-Insert the generated graph here after running the benchmark:
+<img width="2669" height="1468" alt="selection_fraction_vs_valid_match_recall" src="https://github.com/user-attachments/assets/055b7485-02b9-4f94-9d0b-f6f553dc08f3" />
 
-```text
-results/figures/selection_fraction_vs_valid_match_recall.png
-```
-
-![Selection Fraction vs Valid Match Recall](results/figures/selection_fraction_vs_valid_match_recall.png)
 
 ### AI Candidate Reduction vs ZK Work Reduction
 
-Insert the generated graph here after running the benchmark:
+<img width="2669" height="1468" alt="ai_candidate_reduction_vs_zk_work" src="https://github.com/user-attachments/assets/973cf78a-366f-442b-ba38-40e5852399be" />
 
-```text
-results/figures/ai_candidate_reduction_vs_zk_work.png
-```
-
-![AI Candidate Reduction vs ZK Work Reduction](results/figures/ai_candidate_reduction_vs_zk_work.png)
 
 ---
 
@@ -801,37 +791,6 @@ Benchmark results can vary depending on:
 - Market/candidate generation configuration
 
 For meaningful comparisons, benchmark configurations should be recorded alongside the result JSON.
-
----
-
-# Recommended `.gitignore` Coverage
-
-The repository should normally ignore environment-specific and generated files such as:
-
-```text
-.venv/
-__pycache__/
-*.pyc
-node_modules/
-results/
-*.png
-.env
-.DS_Store
-```
-
-Generated ZK artifacts should also be reviewed before committing because proving keys and compiled outputs can be large or environment-specific.
-
----
-
-# License
-
-This project is licensed under the **MIT License**.
-
-You are free to use, modify, and distribute this project in accordance with the terms of the MIT License.
-
-See the [LICENSE](LICENSE) file for details.
-
----
 
 ---
 
