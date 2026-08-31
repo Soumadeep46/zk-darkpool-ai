@@ -1,0 +1,124 @@
+project:
+  name: "ZK-DarkPool AI"
+  version: "0.1.0"
+  seed: 42
+
+exchange:
+  asset_id: "DEMO_ASSET"
+
+  price:
+    min: 1
+    max: 1000000
+
+  volume:
+    min: 1
+    max: 1000000
+
+commitments:
+  scheme: "poseidon"
+  nonce_bits: 120
+
+zk:
+  proving_system: "groth16"
+
+  circuits:
+    order_validity:
+      name: "order_validity"
+      build_dir: "build/order_validity"
+      proving_key: "artifacts/order_validity_final.zkey"
+      verification_key: "artifacts/order_validity_verification_key.json"
+
+    match_compatibility:
+      name: "match_compatibility"
+      build_dir: "build/match_compatibility"
+      proving_key: "artifacts/match_compatibility_final.zkey"
+      verification_key: "artifacts/match_compatibility_verification_key.json"
+
+ai:
+  model_type: "GradientBoostingClassifier"
+  model_path: "artifacts/router.joblib"
+  random_state: 42
+
+  training:
+    test_size: 0.25
+    n_samples: 5000
+
+  routing:
+    top_fraction: 0.25
+    exploration_fraction: 0.05
+
+  model:
+    n_estimators: 250
+    learning_rate: 0.05
+    max_depth: 3
+
+synthetic_data:
+  seed: 42
+  default_pairs: 5000
+
+  assets:
+    - "DEMO_ASSET"
+
+  price:
+    min: 950
+    max: 1050
+
+  allowed_volumes:
+    - 100
+    - 200
+    - 500
+    - 1000
+
+  liquidity_buckets: 5
+  volatility_regimes: 3
+
+benchmark:
+  repetitions: 7
+  warmup_iterations: 2
+
+  batch_sizes:
+    - 1
+    - 5
+    - 10
+
+  ai:
+    candidate_count: 1000
+
+    candidate_sizes:
+      - 100
+      - 500
+      - 1000
+      - 5000
+
+    top_fractions:
+      - 0.10
+      - 0.25
+      - 0.50
+      - 1.00
+
+paths:
+  artifacts: "artifacts"
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  results_plots: "results/plots"
+  results_metrics: "results/metrics"
+  results_demo_outputs: "results/demo_outputs"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+
+privacy:
+  forbidden_public_fields:
+    - "private_price"
+    - "private_volume"
+    - "price_nonce"
+    - "volume_nonce"
+
+  forbidden_ai_features:
+    - "buy_price"
+    - "sell_price"
+    - "buy_volume"
+    - "sell_volume"
+    - "private_price"
+    - "private_volume"
