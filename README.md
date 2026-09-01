@@ -7,6 +7,11 @@
 ![Circom](https://img.shields.io/badge/Circom-ZK%20Circuits-orange)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## Live Demonstrations
+
+- **Benchmark & Statistics Dashboard:** [View Dashboard](https://zk-darkpool-ai-aymhsdsqkyed9f2opwkmrz.streamlit.app/)
+- **Live Private Matching Demo:** [Launch Live Demo](https://zk-darkpool-ai-livelink.streamlit.app/)
+
 ## Overview
 
 Traditional electronic markets require market participants to expose information that can reveal trading intent, such as order price, quantity, and direction. This creates information-leakage and market-impact concerns, especially for large institutional orders.
