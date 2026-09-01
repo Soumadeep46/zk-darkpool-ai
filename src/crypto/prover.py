@@ -23,10 +23,6 @@ class SnarkProver:
     def __init__(self, circuit: str):
         self.circuit = circuit
 
-        # ==========================================
-        # Circuit WASM
-        # ==========================================
-
         self.wasm = (
             ROOT_DIR
             / "build"
@@ -35,22 +31,11 @@ class SnarkProver:
             / f"{circuit}.wasm"
         )
 
-        # ==========================================
-        # Groth16 proving key
-        # ==========================================
-
         self.zkey = (
             ROOT_DIR
             / "artifacts"
             / f"{circuit}_final.zkey"
         )
-
-        # ==========================================
-        # Locate npx
-        #
-        # On Windows, executables are often exposed
-        # as .cmd files, so explicitly check npx.cmd.
-        # ==========================================
 
         self.npx = (
             shutil.which("npx.cmd")
@@ -60,14 +45,8 @@ class SnarkProver:
         if self.npx is None:
             raise FileNotFoundError(
                 "Could not find npx.\n"
-                "Make sure Node.js is installed and "
-                "restart VS Code / PowerShell so PATH "
-                "is refreshed."
+                "Install Node.js and npm in the runtime environment."
             )
-
-        # ==========================================
-        # Validate required circuit artifacts
-        # ==========================================
 
         if not self.wasm.exists():
             raise FileNotFoundError(
@@ -82,6 +61,14 @@ class SnarkProver:
                 f"Circuit: {circuit}\n"
                 f"Expected path: {self.zkey}"
             )
+
+    def _snarkjs_command(self) -> list[str]:
+        return [
+            self.npx,
+            "--yes",
+            "--package=snarkjs@0.7.6",
+            "snarkjs",
+        ]
 
     def prove(
         self,
@@ -110,11 +97,6 @@ class SnarkProver:
                 temp_dir / "public.json"
             )
 
-            # ==========================================
-            # Circom field elements should be represented
-            # as strings in JSON.
-            # ==========================================
-
             input_data = {
                 key: str(value)
                 for key, value in inputs.items()
@@ -128,28 +110,22 @@ class SnarkProver:
                 encoding="utf-8",
             )
 
-            # ==========================================
-            # 1. Generate witness
-            #
-            # Equivalent PowerShell command:
-            #
-            # npx snarkjs wtns calculate \
-            #     circuit.wasm input.json witness.wtns
-            # ==========================================
-
             witness_start = time.perf_counter()
+
+            witness_command = (
+                self._snarkjs_command()
+                + [
+                    "wtns",
+                    "calculate",
+                    str(self.wasm),
+                    str(input_path),
+                    str(witness_path),
+                ]
+            )
 
             try:
                 subprocess.run(
-                    [
-                        self.npx,
-                        "snarkjs",
-                        "wtns",
-                        "calculate",
-                        str(self.wasm),
-                        str(input_path),
-                        str(witness_path),
-                    ],
+                    witness_command,
                     cwd=str(ROOT_DIR),
                     check=True,
                     capture_output=True,
@@ -159,9 +135,7 @@ class SnarkProver:
             except FileNotFoundError as error:
                 raise RuntimeError(
                     "Could not execute npx.\n"
-                    f"Resolved npx path: {self.npx}\n"
-                    "Check your Node.js installation "
-                    "and restart the terminal."
+                    f"Resolved npx path: {self.npx}"
                 ) from error
 
             except subprocess.CalledProcessError as error:
@@ -169,10 +143,7 @@ class SnarkProver:
                     "Witness generation failed.\n\n"
                     f"Circuit: {self.circuit}\n\n"
                     f"Command:\n"
-                    f"{self.npx} snarkjs wtns calculate "
-                    f"{self.wasm} "
-                    f"{input_path} "
-                    f"{witness_path}\n\n"
+                    f"{' '.join(witness_command)}\n\n"
                     f"Input:\n"
                     f"{json.dumps(input_data, indent=2)}\n\n"
                     f"STDOUT:\n"
@@ -183,41 +154,30 @@ class SnarkProver:
 
             witness_end = time.perf_counter()
 
-            # Ensure witness was actually created.
-
             if not witness_path.exists():
                 raise RuntimeError(
-                    "Witness generation command completed "
-                    "but witness.wtns was not created.\n"
+                    "Witness generation completed but "
+                    "witness.wtns was not created.\n"
                     f"Expected path: {witness_path}"
                 )
 
-            # ==========================================
-            # 2. Generate Groth16 proof
-            #
-            # Equivalent PowerShell command:
-            #
-            # npx snarkjs groth16 prove \
-            #     circuit_final.zkey \
-            #     witness.wtns \
-            #     proof.json \
-            #     public.json
-            # ==========================================
-
             proof_start = time.perf_counter()
+
+            proof_command = (
+                self._snarkjs_command()
+                + [
+                    "groth16",
+                    "prove",
+                    str(self.zkey),
+                    str(witness_path),
+                    str(proof_path),
+                    str(public_path),
+                ]
+            )
 
             try:
                 subprocess.run(
-                    [
-                        self.npx,
-                        "snarkjs",
-                        "groth16",
-                        "prove",
-                        str(self.zkey),
-                        str(witness_path),
-                        str(proof_path),
-                        str(public_path),
-                    ],
+                    proof_command,
                     cwd=str(ROOT_DIR),
                     check=True,
                     capture_output=True,
@@ -235,8 +195,8 @@ class SnarkProver:
                 raise RuntimeError(
                     "Proof generation failed.\n\n"
                     f"Circuit: {self.circuit}\n\n"
-                    f"ZKey:\n{self.zkey}\n\n"
-                    f"Witness:\n{witness_path}\n\n"
+                    f"Command:\n"
+                    f"{' '.join(proof_command)}\n\n"
                     f"STDOUT:\n"
                     f"{error.stdout}\n\n"
                     f"STDERR:\n"
@@ -244,10 +204,6 @@ class SnarkProver:
                 ) from error
 
             proof_end = time.perf_counter()
-
-            # ==========================================
-            # Validate proof artifacts
-            # ==========================================
 
             if not proof_path.exists():
                 raise RuntimeError(
@@ -261,10 +217,6 @@ class SnarkProver:
                     "public.json was not created."
                 )
 
-            # ==========================================
-            # Load generated proof
-            # ==========================================
-
             proof = json.loads(
                 proof_path.read_text(
                     encoding="utf-8"
@@ -276,10 +228,6 @@ class SnarkProver:
                     encoding="utf-8"
                 )
             )
-
-            # ==========================================
-            # Return result
-            # ==========================================
 
             return ProofResult(
                 success=True,
