@@ -33,9 +33,8 @@ class SnarkVerifier:
 
         if self.npx is None:
             raise FileNotFoundError(
-                "Could not find npx. "
-                "Make sure Node.js is installed and "
-                "npx is available in PATH."
+                "Could not find npx.\n"
+                "Install Node.js and npm in the runtime environment."
             )
 
         if not self.verification_key.exists():
@@ -44,6 +43,14 @@ class SnarkVerifier:
                 f"Circuit: {circuit}\n"
                 f"Expected path: {self.verification_key}"
             )
+
+    def _snarkjs_command(self) -> list[str]:
+        return [
+            self.npx,
+            "--yes",
+            "--package=snarkjs@0.7.6",
+            "snarkjs",
+        ]
 
     def verify(
         self,
@@ -65,7 +72,6 @@ class SnarkVerifier:
                 temp_dir / "public.json"
             )
 
-            # Save proof.
             proof_path.write_text(
                 json.dumps(
                     proof,
@@ -74,7 +80,6 @@ class SnarkVerifier:
                 encoding="utf-8",
             )
 
-            # Save public signals.
             public_path.write_text(
                 json.dumps(
                     public_signals,
@@ -85,17 +90,20 @@ class SnarkVerifier:
 
             verification_start = time.perf_counter()
 
+            verification_command = (
+                self._snarkjs_command()
+                + [
+                    "groth16",
+                    "verify",
+                    str(self.verification_key),
+                    str(public_path),
+                    str(proof_path),
+                ]
+            )
+
             try:
                 result = subprocess.run(
-                    [
-                        self.npx,
-                        "snarkjs",
-                        "groth16",
-                        "verify",
-                        str(self.verification_key),
-                        str(public_path),
-                        str(proof_path),
-                    ],
+                    verification_command,
                     cwd=str(ROOT_DIR),
                     capture_output=True,
                     text=True,
@@ -114,7 +122,6 @@ class SnarkVerifier:
                 - verification_start
             ) * 1000
 
-            # snarkjs returns exit code 0 for a valid proof.
             valid = result.returncode == 0
 
             return {
