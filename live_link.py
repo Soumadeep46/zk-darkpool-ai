@@ -1,3 +1,27 @@
+import shutil
+import subprocess
+
+print("NODE:", shutil.which("node"))
+print("NPM:", shutil.which("npm"))
+print("NPX:", shutil.which("npx"))
+
+for command in ["node", "npm", "npx"]:
+    try:
+        result = subprocess.run(
+            [command, "--version"],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        print(command.upper(), "RETURN CODE:", result.returncode)
+        print(command.upper(), "STDOUT:", result.stdout)
+        print(command.upper(), "STDERR:", result.stderr)
+    except Exception as e:
+        print(command.upper(), "ERROR:", repr(e))
+
+
+
+
 from uuid import uuid4
 import time
 
